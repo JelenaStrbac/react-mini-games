@@ -28,11 +28,8 @@ const Card = styled.div`
   align-items: center;
   width: 300px;
   height: 350px;
-  // border: 1px solid #282829;
-  // border: 10px solid #ce2039;
   background-color: white;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, .2);
-  // background-image: linear-gradient(to right, #414345, #232526);
 `;
 
 const Title = styled.div`
@@ -48,7 +45,6 @@ const Image = styled.div`
   background-color: #35654d;
   width: 300px;
   height: 200px;
-  // object-fit: contain;
 `;
 
 export default HomeCard;
