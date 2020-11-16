@@ -9,6 +9,7 @@ const Button = (props) => {
 const ButtonStyled = styled.div`
   background-image: linear-gradient(to right, #00cdac, #02aab0);
   color: white;
+  text-decoration: none;
   font-weight: bold;
   font-size: 16px;
   border: none;

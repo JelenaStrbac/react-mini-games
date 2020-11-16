@@ -1,24 +1,33 @@
-import background from "./images/background.jpg";
-import Game from "./containers/Game";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import MasterMind from "./masterMind/containers/MasterMind";
+import Home from "./shared/Home";
+import Game from "./ticTac/containers/Game";
 
 const App = () => {
   return (
-    <div className="App" style={styles.app}>
-      <Game />
-    </div>
+    <Router>
+      <div className="App" style={styles.app}>
+        <Switch>
+          <Route path="/tic-tac-toe">
+            <Game />
+          </Route>
+          <Route path="/mastermind">
+            <MasterMind />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
 const styles = {
   app: {
-    backgroundImage: `url("${background}")`,
     width: "100vw",
     height: "100vh",
-    backgroundSize: "cover",
-    display: "flex",
-    // flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
   },
 };
 

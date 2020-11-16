@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import background from "../../images/background.jpg";
 
 import Player from "../components/Player";
 import GameBoard from "../components/GameBoard";
-import Button from "../components/UI/Button";
-import HoverableText from "../components/UI/HoverableText";
+import Button from "../../shared/UI/Button";
+import HoverableText from "../../shared/UI/HoverableText";
 
 const Game = () => {
   const [isXActive, setIsXActive] = useState(true);
@@ -154,6 +155,7 @@ const styles = {
     alignItems: "center",
     width: "100%",
     height: "100%",
+    backgroundImage: `url("${background}")`,
   },
   game: {
     width: "100%",
