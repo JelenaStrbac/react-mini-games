@@ -6,6 +6,7 @@ const Square = (props) => {
       id={props.id}
       rounded={props.rounded}
       onClick={props.handleClick}
+      color={props.color}
     >
       {props.children}
     </SquareStyled>
@@ -13,7 +14,15 @@ const Square = (props) => {
 };
 
 const SquareStyled = styled.div`
-  background-color: ${(props) => (props.rounded ? "#000" : "#75b796")};
+  background-color: ${(props) =>
+    props.rounded
+      ? props.color === "red"
+        ? "red"
+        : props.color === "yellow"
+        ? "yellow"
+        : "#000"
+      : "#75b796"};
+  // background-color: ${(props) => (props.rounded ? "#000" : "#75b796")};
   width: 50px;
   height: 50px;
   margin: 4px;

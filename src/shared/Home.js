@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import background from "../images/app-background.jpg";
 import ticTacToeImg from "../images/background.jpg";
 import masterMindImg from "../images/cards.png";
 import HomeCard from "./HomeCard";
-import Button from "./UI/Button";
 
 const Home = (props) => {
   return (
