@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import UIfx from "uifx";
-import successSound from "../../sounds/success.wav";
-import failureSound from "../../sounds/failure.wav";
+import { ImArrowRight } from "react-icons/im";
+
+import successSound from "../../assets/sounds/success.wav";
+import failureSound from "../../assets/sounds/failure.wav";
 import Square from "../components/Square";
 import {
   smiles,
@@ -13,85 +15,46 @@ import {
   stars,
 } from "../components/Icons";
 import Button from "../../shared/UI/Button";
+import Navbar from "./Navbar";
+import SideController from "../components/SideController";
+import Modal from "../components/Modal/Modal";
+import useModal from "../hooks/useModal";
+import useModalTwo from "../hooks/useModalTwo";
+import InputModal from "./InputModal";
+import ModalResults from "../components/Modal/ModalResults";
+import ScoreModal from "./ScoreModal";
+import {
+  chunk,
+  pushElementsFromBeginingToRight,
+  checkIfCombinationIsMatching,
+} from "../utils/helperFunctions";
 
 const allIcons = [smiles, clubs, spades, hearts, diamonds, stars];
 
 const success = new UIfx(successSound);
 const failure = new UIfx(failureSound);
 
-/// Chunking array
-const chunk = (array, size) => {
-  const chunkedArr = [];
-  let i = 0;
-  while (i < array.length) {
-    chunkedArr.push(array.slice(i, size + i));
-    i += size;
-  }
-  return chunkedArr;
-};
-
-/// Push to the beginning of array instead of nulls
-const pushElementsFromBeginingToRight = (array, element) => {
-  let tempArr = [...array];
-  let index = tempArr.findIndex((el) => el === null);
-  tempArr[index] = element;
-  return tempArr;
-};
-
-/// Check if winning and guessing arrays are matching
-const compareArrays = (arr1, arr2) => {
-  const result = [];
-  const copyArr1 = [...arr1];
-  const copyArr2 = [...arr2];
-
-  arr2.forEach((el, i) => {
-    if (
-      typeof el !== "string" &&
-      copyArr1.includes(el) &&
-      copyArr1.findIndex((elem, ind) => elem === el && ind === i) !== -1
-    ) {
-      result.push("red");
-      copyArr1[i] = "red";
-      copyArr2[i] = "red";
-    }
-  });
-  copyArr2.forEach((el, i) => {
-    if (typeof el !== "string" && copyArr1.includes(el)) {
-      result.push("yellow");
-      copyArr1[copyArr1.indexOf(el)] = "yellow";
-      copyArr2[i] = "yellow";
-    }
-  });
-  copyArr2.forEach((el, i) => {
-    if (typeof el !== "string" && !copyArr1.includes(el)) {
-      result.push("black");
-      copyArr2[i] = "black";
-    }
-  });
-  return result;
-};
-
-const checkIfCombinationIsMatching = (array, winning) => {
-  let matchingResultsArray = [];
-
-  array.forEach((arrElem) => {
-    if (arrElem.every((one) => one !== null)) {
-      matchingResultsArray.push(...compareArrays(arrElem, winning));
-    }
-  });
-
-  return matchingResultsArray;
-};
+const points = new Map();
+points.set(1, 60).set(2, 50).set(3, 40).set(4, 30).set(5, 20).set(6, 10);
 
 ///// *** COMPONENT *** /////
 const MasterMind = (props) => {
+  // determine winning combination once when component mounts
   const [winningCombination, setWinningCombination] = useState([]);
 
+  useEffect(() => {
+    setWinningCombination(
+      Array.from({ length: 4 }, () => Math.floor(Math.random() * 6))
+    );
+  }, []);
+
+  // determine guessing combination and what icons to show
   const [guessingCombination, setGuessingCombination] = useState(
     Array(24).fill(null)
   );
   const guessingIconsToShow = guessingCombination.map((el) => allIcons[el]);
 
+  // check if winning and guessing combination matches
   const chunkedGuessingCombinationArr = chunk([...guessingCombination], 4);
   const matchingResultsArr = checkIfCombinationIsMatching(
     chunkedGuessingCombinationArr,
@@ -105,16 +68,18 @@ const MasterMind = (props) => {
     ...Array(24 - (length > 24 ? 24 : length)).fill(null),
   ];
 
+  // check if particular game is over and on which way
+  const isGameOverByLosing = guessingCombination.every((el) => el !== null);
   const isGameOverByWinning = chunk(resultsArr, 4).some((el) =>
     el.every((elem) => elem === "red")
   );
-  const isGameOver =
-    guessingCombination.every((el) => el !== null) || isGameOverByWinning;
+  const isGameOver = isGameOverByLosing || isGameOverByWinning;
 
   const winningCombinationIcons = isGameOver
     ? winningCombination.map((el) => allIcons[el])
     : Array(4).fill(null);
 
+  // moment to present "red-yellow" guesses on screen => after four clicks
   if (whenToCallLength > whenToCallLengthRef.current) {
     const length = matchingResultsArr.length;
     resultsArr = [
@@ -124,24 +89,40 @@ const MasterMind = (props) => {
     isGameOverByWinning ? success.play() : failure.play();
   }
 
-  useEffect(() => {
-    setWinningCombination(
-      Array.from({ length: 4 }, () => Math.floor(Math.random() * 6))
-    );
-  }, []);
-
   const onClickHandler = (e) => {
     const id = Number(
       e.target.nodeName === "path" ? e.target.parentNode.id : e.target.id
     );
-    setGuessingCombination(
-      pushElementsFromBeginingToRight(guessingCombination, id)
-    );
-    whenToCallLengthRef.current = whenToCallLength;
-    // success.play();
+    if (!isGameOver && shouldStart) {
+      setGuessingCombination(
+        pushElementsFromBeginingToRight(guessingCombination, id)
+      );
+      whenToCallLengthRef.current = whenToCallLength;
+    }
   };
 
-  const handleReset = () => {
+  // setting score when particular game is over
+  const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    if (isGameOver) {
+      setScore((prevScore) =>
+        isGameOverByWinning
+          ? prevScore + points.get(whenToCallLength)
+          : prevScore - 10
+      );
+    }
+  }, [isGameOverByWinning, isGameOverByLosing, isGameOver, whenToCallLength]);
+
+  /////// GAME FLOW
+  const [shouldStart, setShouldStart] = useState(false);
+  const [userId, setUserId] = useState("");
+
+  const { isShowing, toggle } = useModal();
+  const { isShowingResultsModal, toggleTwo } = useModalTwo();
+
+  //--> called on btn click NEXT and below from start challenge
+  const handleResetAllFieldsOnBoard = () => {
     setWinningCombination(
       Array.from({ length: 4 }, () => Math.floor(Math.random() * 6))
     );
@@ -150,12 +131,44 @@ const MasterMind = (props) => {
     whenToCallLengthRef.current = 0;
   };
 
+  //--> called on btn click START
+  const startChallenge = () => {
+    setShouldStart(true);
+    handleResetAllFieldsOnBoard();
+  };
+
+  //--> called from Timer component, when time lapses
+  const stopStartHandler = () => {
+    toggle();
+    setShouldStart(false);
+    handleResetAllFieldsOnBoard();
+  };
+
+  //--> called from InputModal component when user clicks SUBMIT button
+  const resetScore = (userid) => {
+    setUserId(userid);
+    setScore(0);
+    toggle();
+
+    setTimeout(toggleTwo, 2000);
+    // toggleTwo();
+  };
+
   return (
     <MasterMindContainer>
-      <h1>MASTERMIND</h1>
-      <Button onClickHandler={handleReset}>New game</Button>
+      <Navbar />
+
+      <SideController
+        startChallenge={startChallenge}
+        score={score}
+        shouldStart={shouldStart}
+        stopStartHandler={stopStartHandler}
+      />
+
       <div>
-        <div style={{ display: "flex" }}>
+        <div
+          style={{ display: "flex", alignItems: "center", marginTop: "100px" }}
+        >
           <MasterMindBoard>
             {guessingIconsToShow.map((el, i) => (
               <Square id={i} key={i}>
@@ -178,7 +191,9 @@ const MasterMind = (props) => {
             ))}
           </MasterMindBoard>
 
-          <MasterMindGuessingCombinationsBoard>
+          <MasterMindGuessingCombinationsBoard
+            isDisabled={isGameOver || !shouldStart}
+          >
             {allIcons.map((el, i) => (
               <Square key={i} id={i} handleClick={onClickHandler}>
                 {el}
@@ -186,7 +201,29 @@ const MasterMind = (props) => {
             ))}
           </MasterMindGuessingCombinationsBoard>
         </div>
+        {shouldStart && isGameOver ? (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Button
+              onClickHandler={handleResetAllFieldsOnBoard}
+              isDisabled={!isGameOver}
+            >
+              Next
+              <ImArrowRight />
+            </Button>
+          </div>
+        ) : null}
       </div>
+
+      <Modal isShowing={isShowing} hide={toggle}>
+        <InputModal score={score} resetScore={resetScore} />
+      </Modal>
+
+      <ModalResults
+        isShowingResultsModal={isShowingResultsModal}
+        toggleTwo={toggleTwo}
+      >
+        <ScoreModal id={userId} />
+      </ModalResults>
     </MasterMindContainer>
   );
 };
@@ -197,8 +234,8 @@ const MasterMindContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const MasterMindBoard = styled.div`
@@ -215,7 +252,7 @@ const MasterMindGuessingCombinationsBoard = styled.div`
   grid-auto-rows: 1fr;
   justify-content: space-evenly;
   margin: 30px;
-  cursor: pointer;
+  cursor: ${(props) => (props.isDisabled ? "not-allowed" : "pointer")};
 `;
 
 export default MasterMind;

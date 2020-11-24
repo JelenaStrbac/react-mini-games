@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import background from "../images/app-background.jpg";
-import ticTacToeImg from "../images/background.jpg";
-import masterMindImg from "../images/cards.png";
+import background from "../assets/images/app-background.jpg";
+import ticTacToeImg from "../assets/images/background.jpg";
+import masterMindImg from "../assets/images/cards.png";
 import HomeCard from "./HomeCard";
 
 const Home = (props) => {

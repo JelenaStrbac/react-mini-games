@@ -2,21 +2,23 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import MasterMind from "./masterMind/containers/MasterMind";
 import Home from "./shared/Home";
+import { GlobalStyles } from "./shared/themes/globalStyle";
 import Game from "./ticTac/containers/Game";
 
 const App = () => {
   return (
     <Router>
+      <GlobalStyles />
       <div className="App" style={styles.app}>
         <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
           <Route path="/tic-tac-toe">
             <Game />
           </Route>
           <Route path="/mastermind">
             <MasterMind />
-          </Route>
-          <Route exact path="/">
-            <Home />
           </Route>
         </Switch>
       </div>

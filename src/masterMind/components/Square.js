@@ -22,7 +22,6 @@ const SquareStyled = styled.div`
         ? "yellow"
         : "#000"
       : "#75b796"};
-  // background-color: ${(props) => (props.rounded ? "#000" : "#75b796")};
   width: 50px;
   height: 50px;
   margin: 4px;
