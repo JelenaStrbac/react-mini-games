@@ -36,23 +36,28 @@ const Timer = ({ shouldStart, stopStartHandler }) => {
   }, [shouldStart, stopStartHandler, minutes, seconds]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "160px",
-        marginTop: "40px",
-      }}
-    >
+    <Container>
       <div>
         Time: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
       </div>
       <ProgressBar>
         <ProgressBarTime width={width}></ProgressBarTime>
       </ProgressBar>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  margin-top: 40px;
+
+  @media only screen and (max-width: 480px) {
+    margin-top: 0;
+    width: auto;
+  }
+`;
 
 const ProgressBar = styled.div`
   width: 200px;
@@ -60,6 +65,10 @@ const ProgressBar = styled.div`
   background-color: black;
   margin-top: 20px;
   border: 1px solid white;
+
+  @media only screen and (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const ProgressBarTime = styled.div`

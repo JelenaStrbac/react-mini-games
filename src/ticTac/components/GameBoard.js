@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 
 const GameBoard = (props) => {
   return (
-    <div style={styles.gameBoard}>
+    <GameBoardStyled>
       {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((el, i) => (
         <Cell
           key={el}
@@ -18,7 +18,7 @@ const GameBoard = (props) => {
           {props.gameBoard[el]}
         </Cell>
       ))}
-    </div>
+    </GameBoardStyled>
   );
 };
 
@@ -28,14 +28,11 @@ const pulse = keyframes`{
     100% {color: #FF4B2B;}
 }`;
 
-const styles = {
-  gameBoard: {
-    width: "510px",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "spaceBetween",
-  },
-};
+const GameBoardStyled = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+`;
 
 const Cell = styled.div`
   background-image: linear-gradient(to right, #eef2f3, #c0c0c0);
@@ -54,6 +51,12 @@ const Cell = styled.div`
   animation-duration: 1s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
+
+  @media only screen and (max-width: 480px) {
+    width: 70px;
+    height: 70px;
+    font-size: 48px;
+  }
 `;
 
 export default GameBoard;

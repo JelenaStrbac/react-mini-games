@@ -43,6 +43,10 @@ const ButtonStyled = styled.div`
         : "0px 15px 20px rgba(2, 170, 176, 0.4)"};
     transform: ${(props) => (props.isDisabled ? "none" : "translateY(3px)")};
   }
+
+  @media only screen and (max-width: 480px) {
+    margin: 0;
+  }
 `;
 
 export default Button;

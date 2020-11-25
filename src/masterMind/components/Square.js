@@ -29,6 +29,11 @@ const SquareStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (max-width: 480px) {
+    width: ${(props) => (props.rounded ? "21px" : "50px")};
+    height: ${(props) => (props.rounded ? "21px" : "50px")};
+  }
 `;
 
 export default Square;

@@ -28,6 +28,7 @@ import {
   pushElementsFromBeginingToRight,
   checkIfCombinationIsMatching,
 } from "../utils/helperFunctions";
+import BurgerMenu from "../components/BurgerMenu";
 
 const allIcons = [smiles, clubs, spades, hearts, diamonds, stars];
 
@@ -155,8 +156,9 @@ const MasterMind = (props) => {
   };
 
   return (
-    <MasterMindContainer>
+    <MasterMindContainer id="burger">
       <Navbar />
+      <BurgerMenu pageWrapId={"page-wrap"} outerContainexrId={"burger"} />
 
       <SideController
         startChallenge={startChallenge}
@@ -165,10 +167,8 @@ const MasterMind = (props) => {
         stopStartHandler={stopStartHandler}
       />
 
-      <div>
-        <div
-          style={{ display: "flex", alignItems: "center", marginTop: "100px" }}
-        >
+      <div id="page-wrap">
+        <WrapperTop>
           <MasterMindBoard>
             {guessingIconsToShow.map((el, i) => (
               <Square id={i} key={i}>
@@ -177,14 +177,14 @@ const MasterMind = (props) => {
             ))}
           </MasterMindBoard>
 
-          <MasterMindBoard>
+          <MasterMindBoardRounded>
             {resultsArr.map((el, i) => (
               <Square id={i} key={i} rounded color={el}></Square>
             ))}
-          </MasterMindBoard>
-        </div>
+          </MasterMindBoardRounded>
+        </WrapperTop>
 
-        <div style={{ display: "flex" }}>
+        <Wrapper>
           <MasterMindBoard>
             {winningCombinationIcons.map((el, i) => (
               <Square key={i}>{el}</Square>
@@ -200,7 +200,8 @@ const MasterMind = (props) => {
               </Square>
             ))}
           </MasterMindGuessingCombinationsBoard>
-        </div>
+        </Wrapper>
+
         {shouldStart && isGameOver ? (
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Button
@@ -244,6 +245,26 @@ const MasterMindBoard = styled.div`
   grid-auto-rows: 1fr;
   justify-content: space-evenly;
   margin: 30px;
+
+  @media only screen and (max-width: 480px) {
+    width: 232px;
+    margin: 0;
+    padding: 10px;
+  }
+`;
+
+const MasterMindBoardRounded = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  justify-content: space-evenly;
+  margin: 30px;
+
+  @media only screen and (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0;
+    padding: 10px;
+  }
 `;
 
 const MasterMindGuessingCombinationsBoard = styled.div`
@@ -253,6 +274,38 @@ const MasterMindGuessingCombinationsBoard = styled.div`
   justify-content: space-evenly;
   margin: 30px;
   cursor: ${(props) => (props.isDisabled ? "not-allowed" : "pointer")};
+
+  @media only screen and (max-width: 360px) {
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0px;
+  }
+
+  @media only screen and (min-width: 361px) and (max-width: 481px) {
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+    padding: 10px;
+  }
+`;
+
+const WrapperTop = styled.div`
+  display: flex;
+  margin-top: 100px;
+
+  @media only screen and (max-width: 480px) {
+    justify-content: space-between;
+    margin-top: 0;
+  }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+
+  @media only screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 export default MasterMind;

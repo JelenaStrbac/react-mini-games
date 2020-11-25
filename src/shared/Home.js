@@ -31,6 +31,10 @@ const HomeStyled = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+
+  @media only screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 export default Home;
