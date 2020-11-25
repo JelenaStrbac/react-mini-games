@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import background from "../../assets/images/background.jpg";
 
 import Player from "../components/Player";
@@ -6,87 +6,58 @@ import GameBoard from "../components/GameBoard";
 import Button from "../../shared/UI/Button";
 import HoverableText from "../../shared/UI/HoverableText";
 
+const winningCombinations = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+const initialGameBoard = ["", "", "", "", "", "", "", "", ""];
+
+const initialScore = {
+  x: 0,
+  o: 0,
+};
+
+const checkWinner = (gameBoard) => {
+  const winner = winningCombinations
+    .map((innerArr) =>
+      innerArr.every((el) => gameBoard[el] === "x")
+        ? { winner: "x", combination: [...innerArr] }
+        : innerArr.every((el) => gameBoard[el] === "o")
+        ? { winner: "o", combination: [...innerArr] }
+        : null
+    )
+    .find((elem) => elem && elem.winner);
+
+  return winner;
+};
+
 const Game = () => {
   const [isXActive, setIsXActive] = useState(true);
 
-  const initalGameBoard = ["", "", "", "", "", "", "", "", ""];
-  const [gameBoard, setGameBoard] = useState(initalGameBoard);
+  const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
-  const initialResult = {
-    winner: "",
-    winningCombination: [],
-  };
-  const [result, setResult] = useState(initialResult);
+  const winnerWithCombination = useMemo(() => checkWinner(gameBoard), [
+    gameBoard,
+  ]);
+  const gameOver = winnerWithCombination || gameBoard.every((el) => el !== "");
 
-  const initialScore = {
-    x: 0,
-    o: 0,
-  };
   const [score, setScore] = useState(initialScore);
 
-  const [gameOver, setGameOver] = useState(false);
-
   useEffect(() => {
-    const winningCombinations = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-
-    const checkWinner = (player) => {
-      if (
-        winningCombinations
-          .map((innerArr) => innerArr.every((el) => gameBoard[el] === player))
-          .some((elem) => elem === true)
-      ) {
-        setResult({
-          winner: player,
-          winningCombination:
-            winningCombinations[
-              winningCombinations
-                .map((innerArr) =>
-                  innerArr.every((el) => gameBoard[el] === player)
-                )
-                .indexOf(true)
-            ],
-        });
-      }
-    };
-
-    const checkIsGameOver = () => {
-      if (result.winner || gameBoard.every((el) => el !== "")) {
-        setGameOver(true);
-      }
-    };
-
-    const checkScore = () => {
-      if (result.winner === "x") {
-        setScore((prevState) => {
-          return {
-            ...prevState,
-            x: prevState.x + 1,
-          };
-        });
-      } else if (result.winner === "o") {
-        setScore((prevState) => {
-          return {
-            ...prevState,
-            o: prevState.o + 1,
-          };
-        });
-      }
-    };
-
-    checkWinner("x");
-    checkWinner("o");
-    checkScore();
-    checkIsGameOver();
-  }, [gameBoard, result.winner]);
+    const checkedBoard = checkWinner(gameBoard);
+    if (checkedBoard)
+      setScore((prevState) => ({
+        ...prevState,
+        [checkedBoard.winner]: prevState[checkedBoard.winner] + 1,
+      }));
+  }, [gameBoard]);
 
   const handleClick = (e) => {
     const id = e.target.id;
@@ -96,15 +67,14 @@ const Game = () => {
       setIsXActive(false);
     } else if (!isXActive && gameBoard[id] === "" && !gameOver) {
       setGameBoard(gameBoard.map((el, i) => (i === Number(id) ? "o" : el)));
+
       setIsXActive(true);
     }
   };
 
   const handleResetSingleGame = () => {
     setIsXActive(true);
-    setGameBoard(initalGameBoard);
-    setResult(initialResult);
-    setGameOver(false);
+    setGameBoard(initialGameBoard);
   };
 
   const handleResetWholeGame = () => {
@@ -119,7 +89,9 @@ const Game = () => {
           <div> {gameOver ? `GAME OVER` : null}</div>
           <div>
             {" "}
-            {result.winner ? `${result.winner} player is a WINNNER` : null}
+            {winnerWithCombination?.winner
+              ? `${winnerWithCombination.winner} player is a WINNNER`
+              : null}
           </div>
         </div>
         {gameOver ? (
@@ -134,7 +106,7 @@ const Game = () => {
         <GameBoard
           gameBoard={gameBoard}
           handleClick={handleClick}
-          winningCombination={result.winningCombination}
+          winningCombination={winnerWithCombination?.combination}
         />
         <Player active={!isXActive && !gameOver} score={score.o}>
           O
