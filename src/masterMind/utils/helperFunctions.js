@@ -61,3 +61,40 @@ export const checkIfCombinationIsMatching = (array, winning) => {
 
   return matchingResultsArray;
 };
+
+/// Group users per their position
+const groupBy = (objectArray, property) => {
+  return objectArray.reduce((acc, obj) => {
+    let key = obj[property];
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(obj);
+    return acc;
+  }, {});
+};
+
+export const getPositionOfUsers = (users) => {
+  const fetchedUsersInArray = [];
+  for (let key in users) {
+    fetchedUsersInArray.push({
+      ...users[key],
+      id: key,
+    });
+  }
+  fetchedUsersInArray.sort((a, b) => b.score - a.score);
+
+  const groupedUsersByScore = groupBy(fetchedUsersInArray, "score");
+  const keys = Object.keys(groupedUsersByScore)
+    .map((el) => Number(el))
+    .sort((a, b) => b - a);
+
+  fetchedUsersInArray.forEach((el) => {
+    keys.forEach((elem) => {
+      if (el.score === elem) {
+        el.position = keys.indexOf(elem) + 1;
+      }
+    });
+  });
+  return fetchedUsersInArray;
+};

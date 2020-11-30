@@ -2,9 +2,14 @@ import axios from "../../axios";
 import { useState } from "react";
 import styled from "styled-components";
 import { coins } from "../components/Icons";
+import ScoreModal from "../components/ScoreModal";
+import { getPositionOfUsers } from "../utils/helperFunctions";
+import Spinner from "../../shared/UI/Spinner";
 
 const InputModal = (props) => {
   const [inputName, setInputName] = useState("");
+  const [hide, setHide] = useState(false);
+  const [whatToRender, setWhatToRender] = useState("");
 
   const userData = {
     userName: inputName,
@@ -20,46 +25,68 @@ const InputModal = (props) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/users.json", userData);
-      let userId = response.data.name;
-      if (response) {
-        props.resetScore(userId);
-      }
+      // POST request after particular user finishes game
+      const responsePostOneUser = await axios.post("/users.json", userData);
+      const userId = responsePostOneUser.data.name;
+      setHide(true);
+      setWhatToRender(<Spinner />);
+
+      // GET request => fetching all users, incl. the last one who played
+      const responseGetAllUsers = await axios.get(`/users.json`);
+      const allUsersSorted = getPositionOfUsers(responseGetAllUsers.data);
+
+      // filtering last user to see the position
+      const user = allUsersSorted.filter((el) => el.id === userId);
+      setWhatToRender(<ScoreModal user={user} />);
+
+      // reseting score to 0 when POST particular user & GET particular user requests finish
+      props.resetScore();
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <InputModalContainer>
-      {coins}
-      <div>
-        Your score is <span style={{ fontWeight: "bold" }}>{props.score}</span>
-      </div>
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Input
-          value={inputName}
-          onChange={handleChange}
-          type="text"
-          placeholder="Enter your name"
-          required
-        />
-        <ButtonStyle type="submit">Submit</ButtonStyle>
-      </form>
-    </InputModalContainer>
+    <Container>
+      <InputModalContainer hide={hide}>
+        {coins}
+        <div>
+          Your score is{" "}
+          <span style={{ fontWeight: "bold" }}>{props.score}</span>
+        </div>
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Input
+            value={inputName}
+            onChange={handleChange}
+            type="text"
+            placeholder="Enter your name"
+            required
+          />
+          <ButtonStyle type="submit">Submit</ButtonStyle>
+        </form>
+      </InputModalContainer>
+      {whatToRender}
+    </Container>
   );
 };
 
-const InputModalContainer = styled.div`
+const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const InputModalContainer = styled.div`
+  display: ${(props) => (props.hide ? "none" : "flex")};
   flex-direction: column;
   justify-content: space-between;
   align-items: center;

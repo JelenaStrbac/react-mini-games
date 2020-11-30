@@ -19,10 +19,7 @@ import Navbar from "./Navbar";
 import SideController from "../components/SideController";
 import Modal from "../components/Modal/Modal";
 import useModal from "../hooks/useModal";
-import useModalTwo from "../hooks/useModalTwo";
 import InputModal from "./InputModal";
-import ModalResults from "../components/Modal/ModalResults";
-import ScoreModal from "./ScoreModal";
 import {
   chunk,
   pushElementsFromBeginingToRight,
@@ -117,10 +114,7 @@ const MasterMind = (props) => {
 
   /////// GAME FLOW
   const [shouldStart, setShouldStart] = useState(false);
-  const [userId, setUserId] = useState("");
-
   const { isShowing, toggle } = useModal();
-  const { isShowingResultsModal, toggleTwo } = useModalTwo();
 
   //--> called on btn click NEXT and below from start challenge
   const handleResetAllFieldsOnBoard = () => {
@@ -146,13 +140,8 @@ const MasterMind = (props) => {
   };
 
   //--> called from InputModal component when user clicks SUBMIT button
-  const resetScore = (userid) => {
-    setUserId(userid);
+  const resetScore = () => {
     setScore(0);
-    toggle();
-
-    setTimeout(toggleTwo, 2000);
-    // toggleTwo();
   };
 
   return (
@@ -218,13 +207,6 @@ const MasterMind = (props) => {
       <Modal isShowing={isShowing} hide={toggle}>
         <InputModal score={score} resetScore={resetScore} />
       </Modal>
-
-      <ModalResults
-        isShowingResultsModal={isShowingResultsModal}
-        toggleTwo={toggleTwo}
-      >
-        <ScoreModal id={userId} />
-      </ModalResults>
     </MasterMindContainer>
   );
 };

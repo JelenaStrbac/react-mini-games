@@ -1,11 +1,7 @@
 import styled from "styled-components";
-import useResources from "../hooks/useResources";
-import { cup } from "../components/Icons";
+import { cup } from "./Icons";
 
-const ScoreModal = (props) => {
-  const users = useResources();
-  const user = users.filter((el) => el.id === props.id);
-
+const ScoreModal = ({ user }) => {
   return (
     <ScoreModalContainer>
       {cup}
