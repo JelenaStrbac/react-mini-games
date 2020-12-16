@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { cup } from "./Icons";
+import { cup } from "../../shared/UI/Icons";
 
 const ScoreModal = ({ user }) => {
   return (

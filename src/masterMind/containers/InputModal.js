@@ -1,7 +1,7 @@
 import axios from "../../axios";
 import { useState } from "react";
 import styled from "styled-components";
-import { coins } from "../components/Icons";
+import { coins } from "../../shared/UI/Icons";
 import ScoreModal from "../components/ScoreModal";
 import { getPositionOfUsers } from "../utils/helperFunctions";
 import Spinner from "../../shared/UI/Spinner";

@@ -14,8 +14,8 @@ import {
   hearts,
   diamonds,
   stars,
-} from "../components/Icons";
-import { back } from "../components/Icons";
+} from "../../shared/UI/Icons";
+import { back } from "../../shared/UI/Icons";
 import Button from "../../shared/UI/Button";
 import Navbar from "./Navbar";
 import SideController from "../components/SideController";

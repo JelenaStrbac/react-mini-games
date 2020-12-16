@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { back } from "../../masterMind/components/Icons";
+import { back } from "../../shared/UI/Icons";
 
 import background from "../../assets/images/background.jpg";
 import Player from "../components/Player";

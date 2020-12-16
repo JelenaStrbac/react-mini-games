@@ -46,6 +46,7 @@ const ButtonStyled = styled.div`
 
   @media only screen and (max-width: 480px) {
     margin: 0;
+    margin-bottom: 1rem;
   }
 `;
 

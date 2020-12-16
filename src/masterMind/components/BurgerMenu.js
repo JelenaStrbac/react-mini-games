@@ -8,7 +8,7 @@ import Modal from "./Modal/Modal";
 import useModal from "../hooks/useModal";
 import Rules from "./Rules";
 import Leaderboard from "./Leaderboard";
-import { back } from "../components/Icons";
+import { back } from "../../shared/UI/Icons";
 import { Link } from "react-router-dom";
 
 const BurgerMenu = (props) => {
