@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-import background from "../assets/images/app-background.jpg";
+import background from "../assets/images/anatomy.png";
+// import background from "../assets/images/app-background.jpg";
 import ticTacToeImg from "../assets/images/background.jpg";
 import masterMindImg from "../assets/images/cards.png";
 import HomeCard from "./HomeCard";
@@ -23,9 +24,15 @@ const Home = (props) => {
 };
 
 const HomeStyled = styled.div`
-  //   background-image: linear-gradient(to right, #414345, #232526);
-  background-image: url("${background}");
-  background-size: cover;
+  background-image: linear-gradient(
+      to right,
+      rgba(65, 67, 69, 0.95),
+      rgba(35, 37, 38, 0.9)
+    ),
+    url("${background}");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
