@@ -8,6 +8,8 @@ import Modal from "./Modal/Modal";
 import useModal from "../hooks/useModal";
 import Rules from "./Rules";
 import Leaderboard from "./Leaderboard";
+import { back } from "../components/Icons";
+import { Link } from "react-router-dom";
 
 const BurgerMenu = (props) => {
   const { isShowing, toggle } = useModal();
@@ -49,6 +51,9 @@ const BurgerMenu = (props) => {
         <Modal isShowing={isShowing} hide={toggle}>
           {whatIsClicked === "rules" ? <Rules /> : <Leaderboard />}
         </Modal>
+        <Link to="/" style={{ position: "absolute", left: 10, bottom: 10 }}>
+          {back}
+        </Link>
       </Menu>
     </Container>
   );

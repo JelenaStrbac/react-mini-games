@@ -7,7 +7,7 @@ import Game from "./ticTac/containers/Game";
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/">
       <GlobalStyles />
       <div className="App" style={styles.app}>
         <Switch>

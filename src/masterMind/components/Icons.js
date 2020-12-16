@@ -7,6 +7,7 @@ import {
   ImSmile2,
 } from "react-icons/im";
 import { GiCoins, GiTrophyCup } from "react-icons/gi";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
 const changeIcon = (icon, color, size = "40px") => {
@@ -23,3 +24,4 @@ export const diamonds = changeIcon(<ImDiamonds id={4} />, "red");
 export const stars = changeIcon(<ImStarFull id={5} />, "yellow");
 export const coins = changeIcon(<GiCoins />, "#e7d641");
 export const cup = changeIcon(<GiTrophyCup />, "#e7d641", "100px");
+export const back = changeIcon(<FaArrowAltCircleLeft />, "white", "40px");

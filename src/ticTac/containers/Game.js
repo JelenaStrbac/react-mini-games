@@ -1,7 +1,9 @@
 import { useEffect, useState, useMemo } from "react";
 import styled from "styled-components";
-import background from "../../assets/images/background.jpg";
+import { Link } from "react-router-dom";
+import { back } from "../../masterMind/components/Icons";
 
+import background from "../../assets/images/background.jpg";
 import Player from "../components/Player";
 import GameBoard from "../components/GameBoard";
 import Button from "../../shared/UI/Button";
@@ -138,6 +140,9 @@ const Game = () => {
       <HoverableText onClickHandler={handleResetWholeGame}>
         Start a completely new game? Restart score to 0.
       </HoverableText>
+      <Link to="/" style={{ position: "absolute", left: 10, bottom: 10 }}>
+        {back}
+      </Link>
     </Container>
   );
 };

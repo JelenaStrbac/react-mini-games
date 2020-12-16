@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import UIfx from "uifx";
 import { ImArrowRight } from "react-icons/im";
+import { Link } from "react-router-dom";
 
 import successSound from "../../assets/sounds/success.wav";
 import failureSound from "../../assets/sounds/failure.wav";
@@ -14,6 +15,7 @@ import {
   diamonds,
   stars,
 } from "../components/Icons";
+import { back } from "../components/Icons";
 import Button from "../../shared/UI/Button";
 import Navbar from "./Navbar";
 import SideController from "../components/SideController";
@@ -203,7 +205,10 @@ const MasterMind = (props) => {
           </div>
         ) : null}
       </div>
-
+      <LinkStyled to="/">{back}</LinkStyled>
+      {/* <Link to="/" style={{ position: "absolute", left: 10, bottom: 10 }}>
+        {back}
+      </Link> */}
       <Modal isShowing={isShowing} hide={toggle}>
         <InputModal score={score} resetScore={resetScore} />
       </Modal>
@@ -287,6 +292,17 @@ const Wrapper = styled.div`
 
   @media only screen and (max-width: 480px) {
     flex-direction: column;
+  }
+`;
+
+const LinkStyled = styled(Link)`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 10px;
+
+  @media only screen and (max-width: 480px) {
+    display: none;
   }
 `;
 

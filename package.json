@@ -1,6 +1,5 @@
 {
   "name": "tic_tac_toe",
-  "homepage": "https://jelenastrbac.github.io/tic-tac-toe/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
