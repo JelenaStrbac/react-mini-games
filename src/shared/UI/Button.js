@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Button = (props) => {
   return (
@@ -6,12 +6,19 @@ const Button = (props) => {
       onClick={props.onClickHandler}
       isDisabled={props.isDisabled}
       isChallenge={props.isChallenge}
+      shouldStart={props.shouldStart}
       type={props.type}
     >
       {props.children}
     </ButtonStyled>
   );
 };
+
+const pulse = keyframes`{
+  0%   {color: ##282829;}
+  50%  {color: #FF416C;}
+  100% {color: #FF4B2B;}
+}`;
 
 const ButtonStyled = styled.div`
   background-image: ${(props) =>
@@ -43,6 +50,10 @@ const ButtonStyled = styled.div`
         : "0px 15px 20px rgba(2, 170, 176, 0.4)"};
     transform: ${(props) => (props.isDisabled ? "none" : "translateY(3px)")};
   }
+  animation-name: ${(props) => (props.shouldStart ? pulse : null)};
+  animation-duration: 1s;
+  animation-iteration-count: 5;
+  animation-timing-function: ease-in-out;
 
   @media only screen and (max-width: 480px) {
     margin: 0;

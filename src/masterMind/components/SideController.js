@@ -8,8 +8,13 @@ const SideController = (props) => {
   return (
     <Controler>
       <ScoreTimeContainer>
-        <Button onClickHandler={props.startChallenge} isChallenge>
-          Start <ImPlay3 />
+        <Button
+          onClickHandler={props.startChallenge}
+          isChallenge
+          shouldStart={props.shouldStart}
+        >
+          {props.shouldStart ? "Counting" : "Start"}
+          {props.shouldStart ? null : <ImPlay3 />}
         </Button>
       </ScoreTimeContainer>
       <ScoreTimeContainer>
