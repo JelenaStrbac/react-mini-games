@@ -70,6 +70,7 @@ const Container = styled.div`
 const Title = styled.div`
   font-family: Monoton;
   font-size: 30px;
+  outline: none;
 `;
 
 const StyledContainer = styled.div`
@@ -109,6 +110,7 @@ var styles = {
     background: "#373a47",
     padding: "2.5em 1.5em 0",
     fontSize: "1.15em",
+    overflow: "none",
   },
   bmMorphShape: {
     fill: "#373a47",
@@ -119,6 +121,7 @@ var styles = {
   },
   bmItem: {
     display: "inline-block",
+    outline: "none",
   },
   bmOverlay: {
     background: "rgba(0, 0, 0, 0.3)",
