@@ -8,6 +8,8 @@
 - Testing with Jest;
 - Firebase for keeping score.
 
+## Usage
+
 ### 1. Tic Tac Toe ❌⭕❌
 
 - Classic logic game with X and O in a 3×3 grid;
