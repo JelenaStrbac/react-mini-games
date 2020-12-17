@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 import MasterMind from "./masterMind/containers/MasterMind";
 import Home from "./shared/Home";
@@ -20,6 +25,7 @@ const App = () => {
           <Route path="/mastermind">
             <MasterMind />
           </Route>
+          <Redirect to="/" />
         </Switch>
       </div>
     </Router>
