@@ -12,7 +12,7 @@ import Game from "./ticTac/containers/Game";
 
 const App = () => {
   return (
-    <Router basename="/">
+    <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />
       <div className="App" style={styles.app}>
         <Switch>
