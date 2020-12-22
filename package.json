@@ -2,7 +2,7 @@
   "name": "tic_tac_toe",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://JelenaStrbac.github.io/react-mini-games",
+  "homepage": "https://JelenaStrbac.github.io/react-mini-games",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.1.2",
