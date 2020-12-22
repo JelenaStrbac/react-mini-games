@@ -27,7 +27,7 @@ const initialScore = {
   o: 0,
 };
 
-const checkWinner = (gameBoard) => {
+export const checkWinner = (gameBoard) => {
   const winner = winningCombinations
     .map((innerArr) =>
       innerArr.every((el) => gameBoard[el] === "x")

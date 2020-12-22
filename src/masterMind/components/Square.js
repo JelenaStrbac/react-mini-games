@@ -7,6 +7,15 @@ const Square = (props) => {
       rounded={props.rounded}
       onClick={props.handleClick}
       color={props.color}
+      data-testid={
+        props.testG
+          ? `g${props.id}`
+          : props.testB
+          ? `b${props.id}`
+          : props.testR
+          ? `r${props.id}`
+          : null
+      }
     >
       {props.children}
     </SquareStyled>

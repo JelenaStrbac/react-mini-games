@@ -18,7 +18,7 @@ export const pushElementsFromBeginingToRight = (array, element) => {
 };
 
 /// Check if winning and guessing arrays are matching
-const compareArrays = (arr1, arr2) => {
+export const compareArrays = (arr1, arr2) => {
   const result = [];
   const copyArr1 = [...arr1];
   const copyArr2 = [...arr2];
@@ -58,12 +58,11 @@ export const checkIfCombinationIsMatching = (array, winning) => {
       matchingResultsArray.push(...compareArrays(arrElem, winning));
     }
   });
-
   return matchingResultsArray;
 };
 
 /// Group users per their position
-const groupBy = (objectArray, property) => {
+export const groupBy = (objectArray, property) => {
   return objectArray.reduce((acc, obj) => {
     let key = obj[property];
     if (!acc[key]) {
@@ -97,4 +96,9 @@ export const getPositionOfUsers = (users) => {
     });
   });
   return fetchedUsersInArray;
+};
+
+/// get winning combination in main Mastermind file
+export const getWinnigCombination = () => {
+  return Array.from({ length: 4 }, () => Math.floor(Math.random() * 6));
 };

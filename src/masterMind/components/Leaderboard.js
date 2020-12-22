@@ -24,7 +24,7 @@ const Leaderboard = () => {
               <Th>Date</Th>
             </tr>
           </thead>
-          <tbody>
+          <tbody data-testid="tbody">
             {fetchedUsers
               ? fetchedUsers.map((el, i) => (
                   <RowLeaderboard

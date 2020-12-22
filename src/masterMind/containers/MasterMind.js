@@ -28,6 +28,7 @@ import {
   checkIfCombinationIsMatching,
 } from "../utils/helperFunctions";
 import BurgerMenu from "../components/BurgerMenu";
+import { getWinnigCombination } from "../utils/helperFunctions";
 
 const allIcons = [smiles, clubs, spades, hearts, diamonds, stars];
 
@@ -43,9 +44,7 @@ const MasterMind = (props) => {
   const [winningCombination, setWinningCombination] = useState([]);
 
   useEffect(() => {
-    setWinningCombination(
-      Array.from({ length: 4 }, () => Math.floor(Math.random() * 6))
-    );
+    setWinningCombination(getWinnigCombination());
   }, []);
 
   // determine guessing combination and what icons to show
@@ -120,9 +119,7 @@ const MasterMind = (props) => {
 
   //--> called on btn click NEXT and below from start challenge
   const handleResetAllFieldsOnBoard = () => {
-    setWinningCombination(
-      Array.from({ length: 4 }, () => Math.floor(Math.random() * 6))
-    );
+    setWinningCombination(getWinnigCombination());
     setGuessingCombination(Array(24).fill(null));
     resultsArr = Array(24).fill(null);
     whenToCallLengthRef.current = 0;
@@ -162,7 +159,7 @@ const MasterMind = (props) => {
         <WrapperTop>
           <MasterMindBoard>
             {guessingIconsToShow.map((el, i) => (
-              <Square id={i} key={i}>
+              <Square id={i} key={i} testB>
                 {el}
               </Square>
             ))}
@@ -170,7 +167,7 @@ const MasterMind = (props) => {
 
           <MasterMindBoardRounded>
             {resultsArr.map((el, i) => (
-              <Square id={i} key={i} rounded color={el}></Square>
+              <Square id={i} key={i} rounded testR color={el}></Square>
             ))}
           </MasterMindBoardRounded>
         </WrapperTop>
@@ -186,7 +183,7 @@ const MasterMind = (props) => {
             isDisabled={isGameOver || !shouldStart}
           >
             {allIcons.map((el, i) => (
-              <Square key={i} id={i} handleClick={onClickHandler}>
+              <Square key={i} id={i} testG handleClick={onClickHandler}>
                 {el}
               </Square>
             ))}

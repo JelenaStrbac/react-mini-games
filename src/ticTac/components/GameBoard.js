@@ -8,6 +8,7 @@ const GameBoard = (props) => {
         <Cell
           key={el}
           id={el}
+          data-testid={el}
           onClick={props.handleClick}
           winningCombination={
             props.winningCombination && props.winningCombination.includes(i)

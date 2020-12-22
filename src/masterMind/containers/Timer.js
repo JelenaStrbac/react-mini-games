@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 let totalSec = 180; // 3min
@@ -11,20 +11,30 @@ const Timer = ({ shouldStart, stopStartHandler }) => {
   width = 200 - (totalSec / 180) * 200;
   totalSec = minutes * 60 + seconds;
 
+  const minutesRef = useRef(minutes);
+  const secondsRef = useRef(seconds);
+  const stopStartHandlerRef = useRef(stopStartHandler);
+
+  useEffect(() => {
+    minutesRef.current = minutes;
+    secondsRef.current = seconds;
+    stopStartHandlerRef.current = stopStartHandler;
+  });
+
   useEffect(() => {
     if (shouldStart) {
       let myInterval = setInterval(() => {
-        if (seconds > 0) {
-          setSeconds(seconds - 1);
+        if (secondsRef.current > 0) {
+          setSeconds(secondsRef.current - 1);
         }
-        if (seconds === 0) {
-          if (minutes === 0) {
+        if (secondsRef.current === 0) {
+          if (minutesRef.current === 0) {
             clearInterval(myInterval);
-            stopStartHandler(); // when time lapses, reset all
+            stopStartHandlerRef.current(); // when time lapses, reset all
             setMinutes(3);
             setSeconds(0);
           } else {
-            setMinutes(minutes - 1);
+            setMinutes(minutesRef.current - 1);
             setSeconds(59);
           }
         }
@@ -33,7 +43,7 @@ const Timer = ({ shouldStart, stopStartHandler }) => {
         clearInterval(myInterval);
       };
     }
-  }, [shouldStart, stopStartHandler, minutes, seconds]);
+  }, [shouldStart]);
 
   return (
     <Container>
