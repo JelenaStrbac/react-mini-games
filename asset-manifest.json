@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-mini-games/static/css/main.c05ec453.chunk.css",
-    "main.js": "/react-mini-games/static/js/main.1fb4fe1b.chunk.js",
-    "main.js.map": "/react-mini-games/static/js/main.1fb4fe1b.chunk.js.map",
+    "main.js": "/react-mini-games/static/js/main.12acbbca.chunk.js",
+    "main.js.map": "/react-mini-games/static/js/main.12acbbca.chunk.js.map",
     "runtime-main.js": "/react-mini-games/static/js/runtime-main.89b43ba3.js",
     "runtime-main.js.map": "/react-mini-games/static/js/runtime-main.89b43ba3.js.map",
     "static/js/2.e595833f.chunk.js": "/react-mini-games/static/js/2.e595833f.chunk.js",
@@ -25,6 +25,6 @@
     "static/js/runtime-main.89b43ba3.js",
     "static/js/2.e595833f.chunk.js",
     "static/css/main.c05ec453.chunk.css",
-    "static/js/main.1fb4fe1b.chunk.js"
+    "static/js/main.12acbbca.chunk.js"
   ]
 }
