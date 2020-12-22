@@ -5,7 +5,7 @@
 ## How it is built?
 
 - ReactJS (incl. React hooks);
-- Testing with Jest;
+- Testing with Jest and React Testing Library;
 - Firebase for keeping score.
 
 ## Usage
@@ -22,7 +22,7 @@
 - Redesign of classic Mastermind game:
   - Goal of game is to quess secret combination of 4 signs (out of 6 possible) in 6 rows or less;
   - After each row, the game gives clues to the player - red if sign is guessed and on right place and yellow if sign is guessed but not on right place.
-  - Guessing the whole combination for each row brings certain points (e.g. guessing in first row brings 50 points, in second 40 points, etc., while fail leads to -10 points);
+  - Guessing the whole combination for each row brings certain points (e.g. guessing in first row brings 60 points, in second 50 points, etc., while fail leads to -10 points);
   - To make it more difficult - player has limited time of 3 minutes to win the highest score;
 - Score of all players is tracked in scorelist (kept in Firebase).
 
