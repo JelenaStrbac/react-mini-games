@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/react-mini-games/static/css/main.c05ec453.chunk.css",
+    "main.js": "/react-mini-games/static/js/main.1fb4fe1b.chunk.js",
+    "main.js.map": "/react-mini-games/static/js/main.1fb4fe1b.chunk.js.map",
+    "runtime-main.js": "/react-mini-games/static/js/runtime-main.89b43ba3.js",
+    "runtime-main.js.map": "/react-mini-games/static/js/runtime-main.89b43ba3.js.map",
+    "static/js/2.e595833f.chunk.js": "/react-mini-games/static/js/2.e595833f.chunk.js",
+    "static/js/2.e595833f.chunk.js.map": "/react-mini-games/static/js/2.e595833f.chunk.js.map",
+    "static/js/3.0ba1ba08.chunk.js": "/react-mini-games/static/js/3.0ba1ba08.chunk.js",
+    "static/js/3.0ba1ba08.chunk.js.map": "/react-mini-games/static/js/3.0ba1ba08.chunk.js.map",
+    "index.html": "/react-mini-games/index.html",
+    "static/css/main.c05ec453.chunk.css.map": "/react-mini-games/static/css/main.c05ec453.chunk.css.map",
+    "static/js/2.e595833f.chunk.js.LICENSE.txt": "/react-mini-games/static/js/2.e595833f.chunk.js.LICENSE.txt",
+    "static/media/Lato-Bold.5dd5aa02.ttf": "/react-mini-games/static/media/Lato-Bold.5dd5aa02.ttf",
+    "static/media/Lato-Regular.9919edff.ttf": "/react-mini-games/static/media/Lato-Regular.9919edff.ttf",
+    "static/media/Monoton-Regular.7dedae92.ttf": "/react-mini-games/static/media/Monoton-Regular.7dedae92.ttf",
+    "static/media/anatomy.f35a944f.png": "/react-mini-games/static/media/anatomy.f35a944f.png",
+    "static/media/background.eb0945a6.jpg": "/react-mini-games/static/media/background.eb0945a6.jpg",
+    "static/media/cards.aa896e28.png": "/react-mini-games/static/media/cards.aa896e28.png",
+    "static/media/failure.51f0cedf.wav": "/react-mini-games/static/media/failure.51f0cedf.wav",
+    "static/media/success.ef5d0138.wav": "/react-mini-games/static/media/success.ef5d0138.wav"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.89b43ba3.js",
+    "static/js/2.e595833f.chunk.js",
+    "static/css/main.c05ec453.chunk.css",
+    "static/js/main.1fb4fe1b.chunk.js"
+  ]
+}
