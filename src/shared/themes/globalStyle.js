@@ -1,14 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 import Lato400 from "../../assets/fonts/Lato-Regular.ttf";
 import Lato800 from "../../assets/fonts/Lato-Bold.ttf";
-import Monoton from "../../assets/fonts/Monoton-Regular.ttf";
 
 export const GlobalStyles = createGlobalStyle`
 
-    @font-face {
-      font-family: Monoton;
-      src: url(${Monoton});
-    }
+
     @font-face {
       font-family: Lato;
       src: url(${Lato400});
