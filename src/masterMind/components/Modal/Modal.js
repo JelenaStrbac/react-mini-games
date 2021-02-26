@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
-const Modal = ({ isShowing, hide, children }) =>
+const Modal = ({ isShowing, hide, children, resetScore }) =>
   isShowing
     ? ReactDOM.createPortal(
         <>
@@ -20,7 +20,12 @@ const Modal = ({ isShowing, hide, children }) =>
                   className="modal-close-button"
                   data-dismiss="modal"
                   aria-label="Close"
-                  onClick={hide}
+                  onClick={() => {
+                    if (resetScore) {
+                      resetScore();
+                    }
+                    hide();
+                  }}
                 >
                   <span aria-hidden="true">&times;</span>
                 </StyledButton>

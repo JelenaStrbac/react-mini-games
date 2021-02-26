@@ -206,7 +206,7 @@ const MasterMind = (props) => {
       {/* <Link to="/" style={{ position: "absolute", left: 10, bottom: 10 }}>
         {back}
       </Link> */}
-      <Modal isShowing={isShowing} hide={toggle}>
+      <Modal isShowing={isShowing} hide={toggle} resetScore={resetScore}>
         <InputModal score={score} resetScore={resetScore} />
       </Modal>
     </MasterMindContainer>
